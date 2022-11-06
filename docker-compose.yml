@@ -1,0 +1,65 @@
+services:
+  ngnix:
+    image: nginx:stable-alpine
+    ports:
+      - "9090:80"
+    volumes:
+      - ./config:/etc/nginx
+    networks:
+      - backend
+  app1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - REPLICA_NUMBER=1
+    ports:
+      - "5000"
+    networks:
+      - backend
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+      placement:
+        constraints:
+          - node.labels.type == app1
+  app2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - REPLICA_NUMBER=2
+    ports:
+      - "5000"
+    networks:
+      - backend
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+      placement:
+        constraints:
+          - node.labels.type == app2
+  app3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - REPLICA_NUMBER=3
+    ports:
+      - "5000"
+    networks:
+      - backend
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy: 
+        condition: on-failure
+      placement:
+        constraints:
+          - node.labels.type == app3
+networks:
+  backend:

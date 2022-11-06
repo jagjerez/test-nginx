@@ -1,3 +1,8 @@
 node_modules/
 .env
 package-lock.json
+certbot/
+config/ssl
+config/templates
+config/letsencrypt
+config/logs

@@ -10,20 +10,20 @@ services:
       - ./certbot/www:/var/www/certbot
     networks:
       - backend
-  certbot:
-    image: certbot/certbot:latest
-    depends_on:
-      - ngnix
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email jagjerez2015@gmail.com -d prueba.api.jagjerez.info --agree-tos
-    # command: >-
-    #          certonly --reinstall --webroot --webroot-path=/var/www/certbot
-    #          --email jagjerez2015@gmail.com --agree-tos --no-eff-email
-    #          -d prueba.api.jagjerez.info
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    networks:
-      - backend
+  # certbot:
+  #   image: certbot/certbot:latest
+  #   depends_on:
+  #     - ngnix
+  #   command: certonly --webroot -w /var/www/certbot --force-renewal --email jagjerez2015@gmail.com -d prueba.api.jagjerez.info --agree-tos
+  #   # command: >-
+  #   #          certonly --reinstall --webroot --webroot-path=/var/www/certbot
+  #   #          --email jagjerez2015@gmail.com --agree-tos --no-eff-email
+  #   #          -d prueba.api.jagjerez.info
+  #   volumes:
+  #     - ./certbot/conf:/etc/letsencrypt
+  #     - ./certbot/www:/var/www/certbot
+  #   networks:
+  #     - backend
   app1:
     build:
       context: .
